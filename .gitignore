@@ -198,8 +198,8 @@ pyrightconfig.json
 
 # Dataset files
 
-./data/games.csv
-./data/games.json
+data/games.csv
+data/games.json
 
 # Built Visual Studio Code Extensions
 *.vsix
