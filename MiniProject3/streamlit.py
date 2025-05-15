@@ -66,4 +66,4 @@ df_clean.hist(figsize=(14, 14))
 
 st.pyplot(plt.gcf())
 
-
+clean_data_cluster = pd.read_csv("./data/Emp-Attrition-Initial-Clean.csv")
