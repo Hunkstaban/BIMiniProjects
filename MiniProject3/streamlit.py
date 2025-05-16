@@ -140,8 +140,52 @@ def display_Mean_shift_clustering(df_clean):
 
 clean_data_cluster = pd.read_csv("./data/Emp-Attrition-Initial-Clean.csv")
 
+def display_Classification(df_clean):
+    st.write("### Task 3 - Supervised machine learning: classification")
 
+    st.text("Visualizing feature correlations with attrition using correlation matrix")
 
+    corr = df_clean.corr(numeric_only=True)
+
+    plt.figure(figsize=(25, 20))
+    sns.heatmap(corr, annot=True, cmap='coolwarm')
+    plt.title('Correlation Matrix')
+    st.pyplot(plt)
+
+    
+    st.write("### Correlation of features with Attrition")
+    st.text("Descending order")
+    st.write(corr['Attrition'].sort_values(ascending=False))
+
+    st.write("## Using a pre trained model for descision tree")
+    st.text("We use the model on our data and calculate and plot the importances for the different features")
+    d_tree_model = load("./models/decision_tree_model.pkl")
+    X = df_clean.drop('Attrition', axis=1)
+
+    
+
+    importances = pd.Series(d_tree_model.feature_importances_, index=X.columns)
+    importances = importances.sort_values(ascending=False)
+
+    importance_fig = plt.figure(figsize=(10, 6))
+    importances.plot(kind='bar')
+    plt.title('Feature Importances from Decision Tree')
+    plt.ylabel('Importance')
+
+    st.pyplot(importance_fig)
+
+    st.write("## Using pre trained model for Random Forest")
+
+    rdf_model = load("./models/random_forest_model.pkl")
+
+    rf_importances = pd.Series(rdf_model.feature_importances_, index=X.columns)
+    rf_importances = rf_importances.sort_values(ascending=False)
+    rdf_fig = plt.figure(figsize=(10, 6))
+    rf_importances.plot(kind='bar')
+    plt.title('Feature Importances from Random Forest')
+    plt.ylabel('Importance')
+
+    st.pyplot(rdf_fig)
 
 
 
@@ -151,3 +195,5 @@ if app_mode == "Data Exploration":
     display_DataExploration()
 elif app_mode == "Mean-shift Clustering":
     display_Mean_shift_clustering(clean_data_cluster)
+elif app_mode == "Classificaiton":
+    display_Classification(clean_data_cluster)
