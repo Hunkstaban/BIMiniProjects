@@ -5,8 +5,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from joblib import load
 
+####### --------------------- EEmil --------------------- #######
+import pickle
 
+# Function to load the model
+def load_income_model():
+    with open("model/income_prediction_model.pkl", "rb") as file:
+        model = pickle.load(file)
+    return model
 
+model = load_income_model()
+
+# Example: Predict monthly income for a new employee with given TotalWorkingYears
+# You need to input the feature(s) in the same shape as the training data (e.g., as a 2D array)
+sample_input = [[5]]  # For example: 5 years of working experience
+
+predicted_income = model.predict(sample_input)
+
+st.write(f"Predicted Monthly Income for {sample_input[0][0]} years of experience: ${predicted_income[0]:.2f}")
 
 
 ## st.sidebar.radio("Choose a model", {'Data Exploration', 'K-Means clustering', 'Classification'})
