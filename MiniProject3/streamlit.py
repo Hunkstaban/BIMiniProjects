@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
 
 df = pd.read_csv('./data/Employee-Attrition.csv')
 
@@ -67,3 +68,10 @@ df_clean.hist(figsize=(14, 14))
 st.pyplot(plt.gcf())
 
 clean_data_cluster = pd.read_csv("./data/Emp-Attrition-Initial-Clean.csv")
+
+X = clean_data_cluster.drop(columns=['Attrition'])
+
+clean_data_cluster.drop(columns=['Attrition'])
+st.write(X.shape)
+
+joblib.load('../model/kmmodel.pkl')
